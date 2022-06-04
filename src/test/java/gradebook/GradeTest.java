@@ -10,12 +10,15 @@ class GradeTest {
 
     @Test
     public void createValidGrade(){
-        Rate rate = new Rate(1);
+        Rate rate = Rate.ONE;
         LocalDate localDate = LocalDate.of(2022, 2, 2);
         String description = "descripion";
         Grade grade = new Grade(rate, localDate, description);
-        assertEquals(rate, grade.rate());
-        assertEquals(localDate, grade.date());
-        assertEquals(description, grade.description());
+        Grade grade2 = new Grade(rate, localDate, description);
+
+        assertEquals(grade.hashCode(), grade2.hashCode());
+//        assertEquals(rate, grade.rate());
+//        assertEquals(localDate, grade.date());
+//        assertEquals(description, grade.description());
     }
 }
