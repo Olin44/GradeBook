@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 public record Grade(Rate rate, LocalDate rateDate, String description) {
     public Grade {
-
         if (rate == null) {
             throw new NullPointerException("Rate can't be null");
         }
