@@ -67,7 +67,7 @@ class GradeTest {
     @MethodSource("gradeDates")
     public void gradeCantBeGivenInSundayAndSaturday(LocalDate gradeDate) {
         var exception = assertThrows(InvalidGradeException.class,
-                () -> new Grade(VALID_RATE, gradeDate, ""));
+                () -> new Grade(VALID_RATE, gradeDate, VALID_DESCRIPTION));
         assertEquals(exception.getMessage(), "Grade can't be given in sunday and saturday");
     }
 
