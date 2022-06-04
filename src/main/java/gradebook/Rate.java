@@ -1,5 +1,5 @@
 package gradebook;
 
-public record Rate(int value) {
+public record Rate(double value) {
 
 }
