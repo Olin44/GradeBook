@@ -1,4 +1,4 @@
 package gradebook;
 
-public class Grade {
+public record Grade() {
 }
