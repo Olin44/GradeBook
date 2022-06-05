@@ -11,7 +11,7 @@ public record Grade(Rate rate, LocalDate rateDate, String description) {
         if (rateDate == null) {
             throw new NullPointerException("Rate date can't be null");
         }
-        if (description!=null && description.isBlank()) {
+        if (description != null && description.isBlank()) {
             throw new InvalidGradeException("Description can't be empty");
         }
         DayOfWeek dayOfWeek = rateDate.getDayOfWeek();
@@ -19,8 +19,6 @@ public record Grade(Rate rate, LocalDate rateDate, String description) {
             throw new InvalidGradeException("Grade can't be given in sunday and saturday");
         }
     }
-    public Grade(Rate rate, LocalDate rateDate) {
-        this(rate, rateDate, null);
 
-    }
+
 }
