@@ -36,7 +36,10 @@ public class Subject {
     }
 
     public Optional<Grade> lastGrade() {
-        Optional<Grade> gradeOptional = grades.stream().reduce((first, second) -> second).stream().findFirst();
+        Optional<Grade> gradeOptional = Optional.empty();
+        if (!grades.isEmpty()) {
+            gradeOptional = Optional.of(grades.get(grades.size() - 1));
+        }
         return gradeOptional;
     }
 
