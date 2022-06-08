@@ -9,6 +9,7 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.jar.JarOutputStream;
 
@@ -231,18 +232,19 @@ class SubjectTest {
                 createValidGradeByRate(new Rate(4)));
         Subject subject = new Subject(SUBJECT_NAME, grades);
         //when
-        Grade grade = subject.lastGrade();
+        Optional<Grade> grade = subject.lastGrade();
         //then
-        assertEquals(createValidGradeByRate(new Rate(4)), grade);
+        assertEquals(Optional.of(createValidGradeByRate(new Rate(4))), grade);
     }
 
     @Test
     public void getLastAddedGradeWithNull() {
+        //given
         Subject subject = new Subject(SUBJECT_NAME);
-        IndexOutOfBoundsException exception = assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> subject.lastGrade());
-        assertEquals("Grades can't be empty.", exception.getMessage());
+        //when
+        Optional<Grade> optionalGrade = subject.lastGrade();
+        //then
+        assertTrue(optionalGrade.isEmpty());
     }
 
     @Test
@@ -314,7 +316,6 @@ class SubjectTest {
                         createValidGradeByDescription(null)),
                 subjectGrades);
     }
-
 
     @Test
     public void countGradesByRate() {

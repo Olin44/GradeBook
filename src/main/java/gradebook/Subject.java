@@ -35,11 +35,9 @@ public class Subject {
         return grades;
     }
 
-    public Grade lastGrade() {
-        if (grades.isEmpty()) {
-            throw new IndexOutOfBoundsException("Grades can't be empty.");
-        }
-        return grades.get(grades.size() - 1);
+    public Optional<Grade> lastGrade() {
+        Optional<Grade> gradeOptional = grades.stream().reduce((first, second) -> second).stream().findFirst();
+        return gradeOptional;
     }
 
     public void addAll(List<Grade> grades) {
@@ -48,49 +46,49 @@ public class Subject {
 
     public List<Grade> gradesByMonth(Month month) {
         return grades.stream()
-                .filter(f -> Objects.equals(f.rateDate().getMonth(), month))
+                .filter(grade -> Objects.equals(grade.rateDate().getMonth(), month))
                 .toList();
     }
 
     public OptionalDouble averageGradeRates() {
         return grades.stream()
-                .mapToDouble(m -> m.rate().value())
+                .mapToDouble(grade -> grade.rate().value())
                 .average();
     }
 
     public List<Grade> gradesByDay(DayOfWeek day) {
         return grades.stream()
-                .filter(f -> Objects.equals(f.rateDate().getDayOfWeek(), day))
+                .filter(grade -> Objects.equals(grade.rateDate().getDayOfWeek(), day))
                 .toList();
     }
 
     public OptionalDouble minGradeRate() {
         return grades.stream()
-                .mapToDouble(m -> m.rate().value())
+                .mapToDouble(grade -> grade.rate().value())
                 .min();
     }
 
     public OptionalDouble maxGradeRate() {
         return grades.stream()
-                .mapToDouble(m -> m.rate().value())
+                .mapToDouble(grade -> grade.rate().value())
                 .max();
     }
 
     public List<Grade> gradesByWeek(int weekNumber) {
         return grades.stream()
-                .filter(f -> f.rateDate().get(WeekFields.of(Locale.getDefault()).weekOfYear()) == weekNumber)
+                .filter(grade -> grade.rateDate().get(WeekFields.of(Locale.getDefault()).weekOfYear()) == weekNumber)
                 .toList();
     }
 
     public long countGradesByRate(Rate rate) {
         return grades.stream()
-                .filter(f -> Objects.equals(f.rate(), rate))
+                .filter(grade -> Objects.equals(grade.rate(), rate))
                 .count();
     }
 
     public List<Grade> gradesWithoutDescription() {
         return grades.stream()
-                .filter(f -> Objects.equals(f.description(), null))
+                .filter(grade -> Objects.equals(grade.description(), null))
                 .toList();
     }
 }
